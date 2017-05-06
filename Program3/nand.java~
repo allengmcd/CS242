@@ -1,0 +1,69 @@
+/**
+ * The node class was orignally going to help create a doubly linkedList
+ * however I found it easier to use a singly linkedList
+ * there are many commented out sections in this class that i kept in case
+ * I wanted to keep them. I also didn't want to screw up my entire program
+ * so I left certain sections that way 
+ * <br><br>
+ * @author Allen McDermott
+ * @since 10/15/14
+ */
+
+
+
+public class nand
+{
+	//Data type String
+	String data;
+
+	//Pointer(s)
+	nand next;
+	//node prev;
+
+	//contructor for a node
+	public nand(String s)
+	{
+		data = s;
+		next = null;
+		//prev = null;
+	}
+
+	/**@param value for the node**/
+	public nand(String value,/**node pre,**/nand nex)
+	{
+		data = value;
+		next = nex;
+		//prev = pre;
+	}
+
+	/**@param sets the next node == input**/
+	public void setNext(nand input)
+	{
+		next = input;
+	}
+
+	/**@param sets the prev node == input**/
+	/**public void setPrev(node input)
+	{
+		prev = input;
+	}**/
+
+	/**@return the next InNode**/
+	public nand getNext()
+	{
+		return next;
+	}
+	
+	/**@return the previous node**/
+	/**public node getPrev()
+	{
+		return prev;
+ 	}**/
+	
+	/**@return data of the node**/
+	public String getData()
+	{
+		return data;
+	}
+}
+	

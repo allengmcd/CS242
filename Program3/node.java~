@@ -1,0 +1,77 @@
+
+public class node {
+	
+	node next;
+	String color;
+	DiNode vertex;
+	int dist;
+
+	public node(DiNode pull) {
+		next = null;
+		vertex = pull;
+		color = "white";
+		dist=0;
+	}
+
+	public String[] getPar() {
+		return vertex.getParents();
+	}
+
+	public String[] getChi() {
+		return vertex.getChildren();
+	}
+	
+	public void deletePar(String par) {
+		vertex.removeParent(par);
+	}
+
+	public void deleteChi(String chi) {
+		vertex.removeChild(chi);
+	}
+
+	public void clearChi() {
+		vertex.clearChildren();
+	}
+
+	public void clearPar() {
+		vertex.clearParents();
+	}
+
+
+	public void setVertex(DiNode rep) {
+		vertex = rep;
+	}
+
+	public void setNext(node k) {
+		next = k;
+	}
+
+	public node getNext() {
+		return next;
+	}
+
+	public DiNode getVertex() {
+		return vertex;
+	}
+
+	public String getData() {
+		return vertex.getName()+"";
+	}
+
+	public void setColor(String s) {
+		color = s;
+	}
+	
+	public String getColor() {
+		return color;
+	}
+
+	public int getDist() {
+		return dist;
+	}
+	
+	public void setDist(int i) {
+		dist = i;
+	}
+
+}

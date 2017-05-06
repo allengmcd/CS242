@@ -1,0 +1,27 @@
+TLDDR program3
+Allen McDermott
+
+For the classed that I created I have,DiNode,node,graph,runGraph. Plus
+I have some classes from program1 nand(previously node but I had to change 
+it since I already had a node in this class), LinkedList, set(plus the ones
+provided to us in both program1 and program3). !!!!!runGraph!!!!!! is the 
+class you need to select when you run DiGraphTest or else it will not work 
+correctly. runGraph makes a graph which you can then call certain methods via
+the DiGraphTest class. graph uses the node class as a linkedList to navigate
+through the different vertexes. This is accomplished by the nodes having a 
+data value of type DiNode. The DiNode class contains the String value as well
+as the parents(getting pointed too), and the children(pointing to another DiNode).
+I also have the StringList class along with the classes related to that which you
+can read in my program1 assignment.
+
+My design rational was trying to keep it organized but it did not turn out like
+that mainly for the complicated algorithms (i.e. getShortestPath, getBFT ect.)
+but that being said everything should work correctly. The biggest problem I had
+was with the BFS tree string which I could not figure out how I was supposed to make
+the String look like. It should work fine in most circumstances but in most cases it 
+should closly represent a BFS tree. However I used BFS in the get ShortestPath method
+so that is evidence that I do understand what and how BFS works and I showed how
+to use it. Again I just didn't know how the getBFS was suppose to look like there in
+I don't think I did it properly.
+
+

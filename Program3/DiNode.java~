@@ -1,0 +1,201 @@
+/**
+ * This is class graph it does all of the required 
+ * work for program3 it uses class node as a master
+ * list for all of the vertexes
+ * @author Allen McDermott
+ * @since 12/13/2014
+**/
+
+
+
+
+public class DiNode {
+
+	String name;
+
+	String[] parents;
+	String[] children;
+
+
+	public DiNode(String nam) {
+		name = nam;
+		parents = new String[0];
+		children = new String[0];
+	}
+
+	public void clearChildren() {
+		children = new String[0];
+	}
+
+	public void clearParents() {
+		parents = new String[0];
+	}
+
+	public String getName() {
+		return name+"";
+	}
+
+	public int getParentSize() {
+		return parents.length;
+	}
+
+	public int getChildSize() {
+		return children.length;
+	}
+
+	public String getParent() {
+		String s = "";
+		for(int i = 0; i<parents.length;i++) {
+			s+=","+parents[i];
+		}
+		return s+"";
+	}
+
+	public String getChi() {
+		String s ="";
+		for(int i = 0; i<children.length;i++) {
+			s+=","+children[i];
+		}
+		return s+"";
+	}
+
+	public void addParent(String parent) {
+		String[] temp = parents;
+
+		parents = new String[temp.length+1];
+		int j = temp.length;
+		for(int i = 0; i<temp.length;i++) {
+			
+			parents[i] = temp[i];
+		}
+		parents[j]=parent;
+	
+	}
+
+
+	public void addChild(String child) {
+		String[] temp = children;
+		children = new String[temp.length+1];
+		int j = temp.length;
+		for(int i = 0; i<temp.length;i++) {
+			children[i] = temp[i];
+			
+		}
+		children[j]=child;
+	}
+
+
+	public boolean removeParent(String parent) {
+		String[] temp = parents;
+		int j = 0;
+		for(int i = 0; i<temp.length;i++) {
+			if(temp[i].equals(parent)) {
+				temp[i] = null;
+				j++;
+			}
+		}
+	
+		if(j==0) {
+			return false;
+		}
+		parents = new String[temp.length-1];
+
+		int ki = 0;
+		for(int i = 0; i<temp.length;i++) {
+			if(temp[i]==null) {
+				ki--;
+			}
+			else {
+				parents[ki]=temp[i];
+			}
+			ki++;
+		}
+		return true;
+	}
+
+
+
+
+
+
+	public boolean removeChild(String child) {
+		String[] temp = children;
+		int go = temp.length;
+		int j = 0;
+
+		for(int i = 0; i<temp.length;i++) {	
+			if(temp[i].equals(child)) {
+				temp[i] = null;
+				j++;
+			}
+			
+		}
+	
+		if(j==0) {
+			return false;
+		}
+		children = new String[go-1];
+		int ki = 0;
+		for(int i = 0; i<temp.length;i++) {
+			if(temp[i]==null) {
+				ki--;
+			}
+			else {
+				children[ki]=temp[i];
+			}
+			ki++;
+		}
+
+		return true;
+	}
+
+
+	public boolean containsParent(String parent) {
+		for(int i = 0; i<parents.length;i++) {
+			if(parents[i] == parent) {
+				return true;
+			}
+		}
+		return false;
+	}
+			
+
+	public boolean containsChild(String child) {
+		for(int i = 0; i<parents.length;i++) {
+			if(children[i] == child) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public String[] getChildren() {
+		return children;
+	}
+
+	public String[] getParents() {
+		return parents;
+	}
+	
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

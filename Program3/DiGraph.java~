@@ -1,0 +1,612 @@
+public class DiGraph {
+
+	node head;
+	node tail;
+
+	int size;
+	int edgeCount;
+	
+
+	public DiGraph() {
+		head = null;
+		tail = head;
+		size = 0;
+	}
+
+	public boolean addVertex(String id) {
+		if(contains(id)==true) {
+			return false;
+		}
+
+		DiNode tap = new DiNode(id);
+		node temp = head;
+		if(head == null) {
+			head = new node(tap);
+			head.setNext(tail);
+			size++;
+			return true;
+		}
+		else{
+			while(temp.getNext()!=null) {
+				 temp = temp.getNext();
+			}
+		}
+
+		node nod = new node(tap);
+		temp.setNext(nod);
+		tail = temp.getNext();
+		size++;
+		return true;
+	}
+
+
+	public void addEdge(String id1, String id2) {
+		DiNode node1= null;
+		DiNode node2=null;
+		node temp = head;
+		
+		if(head!=null) {
+				
+			if(id1.equals(head.getData())) {
+				while(temp.getNext()!=null&&!temp.getData().equals(id2)) {
+					temp=temp.getNext();
+				}
+				node1=head.getVertex();
+				node2=temp.getVertex();
+
+
+				node1.addChild(node2.getName()+"");
+				node2.addParent(node1.getName()+"");
+				edgeCount++;
+				
+				
+			}
+
+			else if(id2.equals(head.getData())) {
+				while(temp.getNext()!=null&&!temp.getData().equals(id1)) {
+					temp=temp.getNext();
+				}
+				node1=head.getVertex();
+				node2=temp.getVertex();
+				node2.addChild(node1.getName());
+				node1.addParent(node2.getName());
+				edgeCount++;
+			}
+
+			else {
+				
+			
+				while(temp.getNext()!=null&&!temp.getData().equals(id1)) {
+					temp = temp.getNext();
+				}
+				
+				node1 = temp.getVertex();
+				temp = head;
+				
+				while(temp.getNext()!=null&&!temp.getData().equals(id2)) {
+					temp = temp.getNext();
+				}
+				
+				node2 = temp.getVertex();;
+				
+				
+				
+					
+				node1.addChild(node2.getName()+"");
+				node2.addParent(node1.getName()+"");
+				edgeCount++;
+
+				
+			}
+		}
+		
+	}
+
+	public boolean removeVertex(String id) {
+		if(contains(id)==false) {
+			return false;
+		}
+
+		node temp = head;
+		String[] parents;
+		String[] children;
+		if(head.getData().equals(id)) {
+			head = head.getNext();
+			parents = temp.getPar();
+			temp.clearPar();
+			for(int i =0;i<parents.length;i++) {
+				node hi = temp;
+				while(hi.getNext()!=null) {
+					hi=hi.getNext();
+					if(hi.getVertex().equals(parents[i])) {
+						hi.deleteChi(parents[i]);
+						break;
+					}
+				}
+			}
+
+			children=temp.getChi();
+			temp.clearChi();
+			for(int i =0;i<children.length;i++) {
+				node hi = temp;
+				while(hi.getNext()!=null) {
+					hi=hi.getNext();
+					if(hi.getData().equals(children[i])) {
+						hi.deletePar(children[i]);
+						break;
+					}
+				}
+			}
+			size--;		
+			return true;
+		}
+		
+		while(temp.getNext()!=null&&!temp.getNext().getData().equals(id)) {
+			temp=temp.getNext();
+		}
+		
+		
+			parents = temp.getPar();
+			temp.clearPar();
+			for(int i =0;i<parents.length;i++) {
+				node hi = temp;
+			
+				while(hi.getNext()!=null) {
+					hi=hi.getNext();
+					if(hi.getData().equals(parents[i])) {
+						hi.deleteChi(parents[i]);
+						break;
+					}
+				}
+			}
+
+			children=temp.getChi();
+			temp.clearChi();
+			for(int i =0;i<children.length;i++) {
+				node hi = temp;
+				if(hi.getData().equals(children[i])) {
+					hi.deletePar(children[i]);
+				}
+				while(hi.getNext()!=null) {
+					hi=hi.getNext();
+					if(hi.getData().equals(children[i])) {
+						hi.deletePar(children[i]);
+						break;
+					}
+				}
+			}
+			size--;			
+			return true;
+
+		
+	}
+
+	public boolean contains(String id) {
+		node temp = head;
+		if(head==null) {
+			return false;
+		}
+		
+		if((""+head.getData()).equals(id)) {
+			return true;
+		}
+	
+		while(temp.getNext()!=null) {
+			temp=temp.getNext();
+			if((temp.getData()+"").equals(id)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+
+	public void removeEdge(String id1, String id2) {
+		
+		
+		if(contains(id1)==true&&contains(id2)==true) {
+
+			DiNode node1= null;
+			DiNode node2=null;
+			node temp = head;
+			if(head.getData().equals(id1)) {
+				while(temp.getNext()!=null&&!temp.getVertex().getName().equals(id2)) {
+					temp=temp.getNext();
+				}
+				node1 = head.getVertex();
+				node2 = temp.getVertex();
+
+				node1.removeChild(node2.getName());
+
+				node2.removeParent(node1.getName());
+				edgeCount--;
+
+			}
+
+			else if(head.getData().equals(id2)) {
+				while(temp.getNext()!=null&&!temp.getVertex().getName().equals(id1)) {
+					temp=temp.getNext();
+				}
+				node1 = head.getVertex();
+				node2 = temp.getVertex();
+				node2.removeChild(node1.getName());
+				node1.removeParent(node2.getName());
+				edgeCount--;
+			}
+
+
+
+			else {
+				node tempo = head;
+				while(temp.getNext()!=null&&!temp.getData().equals(id1)) {
+					temp = temp.getNext();
+				}
+
+				while(tempo.getNext()!=null&&!tempo.getData().equals(id2)) {
+					tempo= tempo.getNext();
+				}
+				node1 = temp.getVertex();
+				node2 = tempo.getVertex();
+				
+			
+
+
+				node1.removeChild(node2.getName());
+				node2.removeParent(node1.getName());
+				edgeCount--;
+			
+				
+			}
+		}
+	}
+
+		
+	
+	public void clear() {
+		head = null;
+		tail = head;
+		size=0;
+	}
+		
+		
+
+	public StringList getVertexList() {
+		node temp = head;
+		
+		StringList list=null;
+		if(head==null) {
+			return list;
+		}
+		
+		
+		list.add(temp.getData());
+		while(temp.getNext()!=null) {
+			temp=temp.getNext();
+			list.add(temp.getData());
+		}
+
+		return list;
+	}
+
+
+	public StringList getNeighbors(String id1) {
+		StringList list = null;
+		if(contains(id1) == false) {
+			return list;
+		}
+		
+		String[] parents;
+		String[] children;
+		if(head.getData().equals(id1)) {
+			parents = head.getPar();
+			children = head.getChi();
+		}
+		
+		else{
+			node temp = head;
+		
+			while(temp.getNext()!=null&&!temp.getData().equals(id1)) {
+				temp=temp.getNext();
+			}
+			parents = temp.getPar();
+			children = temp.getChi();
+		}
+
+		for(int i =0; i<parents.length;i++) {
+			list.add(parents[i]);
+		}
+		
+		for(int x = 0; x<children.length;x++) {
+			list.add(children[x]);
+		}
+		
+		return list;
+	}
+
+	public int getInDegree(String id1) {
+		int ans;
+		if(contains(id1) == false) {
+			return -1;
+		}
+
+		if(head.getData().equals(id1)) {
+			ans = head.getVertex().getParentSize();
+		}
+		
+		else{
+			node temp = head;
+		
+			while(temp.getNext()!=null&&!temp.getData().equals(id1)) {
+				temp=temp.getNext();
+			}
+			ans = temp.getVertex().getParentSize();
+		}
+		return ans;
+	}
+
+
+	public int getOutDegree(String id1) {
+		int ans;
+		if(contains(id1) == false) {
+			return -1;
+		}
+
+		if(head.getData().equals(id1)) {
+			ans = head.getVertex().getChildSize();
+		}
+		
+		else{
+			node temp = head;
+		
+			while(temp.getNext()!=null&&!temp.getData().equals(id1)) {
+				temp=temp.getNext();
+			}
+			ans = temp.getVertex().getChildSize();
+		}
+		return ans;
+	}
+
+	public int getVertexCount() {
+		return size;
+	}
+
+	public int getEdgeCount() {
+		return edgeCount;
+	}
+
+	public boolean hasEdge(String id1, String id2) {
+		if(contains(id1) == false||contains(id2)==false) {
+			return false;
+		}
+		
+		String[] children;
+		String[] parents;
+		if(head.getData().equals(id1)) {
+
+			children = head.getChi();
+			for(int i = 0;i<children.length;i++) {
+				if(children[i]!=null&&children[i].equals(id2)) {
+					System.out.println(children[i]);
+					return true;
+				}
+
+
+			}
+			
+			return false;
+		}
+
+		else if(head.getData().equals(id2)) {
+			parents = head.getPar();
+			for(int i = 0;i<parents.length;i++) {
+
+				if(parents[i]!=null&&parents[i].equals(id1)) {
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		else{
+			node temp = head;
+		
+			while(temp.getNext()!=null&&!temp.getData().equals(id1)) {
+				temp=temp.getNext();
+				if(temp.getData().equals(id1)) {
+					children = temp.getChi();
+					for(int i = 0;i<children.length;i++) {
+
+						if(children[i]!=null&&children[i].equals(id2)) {
+							return true;
+						}
+					}
+				}
+				if(temp.getData().equals(id2)) {
+					parents = temp.getPar();
+					for(int i = 0;i<parents.length;i++) {
+					
+						if(parents[i]!=null&&parents[i].equals(id1)) {
+							return true;
+						}
+					}
+				}
+			}
+					
+			
+			
+		}
+		return false;
+	}
+		
+
+			
+	public String getPath(DiNode nob, String id2) {
+		String[] list = nob.getChildren();
+		
+		String s=null;
+		for(int i = 0;i<list.length;i++) {
+			node temp = head;
+			if(list[i].equals(id2)) {
+				return id2;
+			}
+			if(head.getData().equals(list[i])) {
+				s = getPath(head.getVertex(),id2);
+			}
+			else {
+				while(temp.getNext()!=null) {
+					temp=temp.getNext();
+					if(temp.getData().equals(list[i])) {
+						s=getPath(temp.getVertex(),id2);
+					}
+				}
+			};
+				
+		}
+		return s;
+	}
+	
+
+
+
+
+
+
+	public boolean hasPath(String id1, String id2) {
+		if(contains(id1) == false||contains(id2)==false) {
+			return false;
+		}
+		node temp=head;
+		String s=null;
+
+		if(head.getData().equals(id1)) {
+			s = getPath(head.getVertex(),id2);
+
+		}
+		else {
+			while(temp.getNext()!=null) {
+				temp=temp.getNext();
+				if(temp.getData().equals(id1)) {
+					s = getPath(temp.getVertex(),id2);
+				}
+			}
+		}
+		if(id2.equals(s)) {
+			return true;
+		}
+
+		return false;
+	}
+
+		
+
+	
+	public String makeBFTree(String[] list,DiNode nad) {
+		String[] letz =new String[nad.getChildSize()];		
+		int gogo = 0;
+		String BFT = "";
+		for(int i=0;i<list.length;i++) {
+			if(list[i]!=null){				
+				if(list[i].equals(nad.getName())) {			
+					list[i]=null;
+				}
+			}
+		}
+	
+		String[] nap = nad.getChildren();
+		for(int x = 0;x<nap.length;x++) {
+			for(int i = 0;i<list.length;i++) {
+				if(nap[x].equals(list[i])) {
+					letz[gogo] = list[i];
+					gogo++;
+					list[i]=null;
+				}
+			}
+		}
+		System.out.println(letz.length+" "+nad.getName());
+		if(letz.length==0) {
+			return "";
+		}
+		if(letz[0]==null) {
+			return "";
+		}
+		int toad=0;
+		for(int x = 0;x<letz.length;x++) {
+
+			node temp=head;
+			if(head.getData().equals(letz[x])) {
+				if(toad==0) {
+					BFT+="("+letz[x]+makeBFTree(list,head.getVertex());
+					toad++;
+				}
+				else {
+					BFT+=" "+letz[x]+makeBFTree(list,head.getVertex());
+				}
+			}
+			else {
+				while(temp.getNext()!=null) {
+					temp=temp.getNext();
+					if(temp.getData().equals(letz[x])) {
+						if(toad==0) {
+							BFT+="("+letz[x]+makeBFTree(list,temp.getVertex());
+							toad++;
+						}
+						else {
+							BFT+=" "+letz[x]+makeBFTree(list,temp.getVertex());
+						}
+					}
+				}
+			}
+		
+		}
+
+		return BFT+")";
+
+		
+		
+	}
+
+
+
+	public String getBFTree(String root) {
+		if(contains(root) == false) {
+			return "Not in tree";
+		}
+		node tempo = head;
+		String[] getEm = new String[size];
+		getEm[0] = head.getData();
+		int koal = 1;
+		while(tempo.getNext()!=null) {
+			tempo=tempo.getNext();
+			getEm[koal]=tempo.getData();			
+			koal++;
+		}
+		node temp = head;
+		System.out.println("HALLA"+getEm.length);
+		if(head.getData().equals(root)) {
+			return "1"+makeBFTree(getEm,head.getVertex());
+		}
+		else {
+			while(temp.getNext()!=null) {
+				temp=temp.getNext();
+				if(temp.getData().equals(root)) {
+					return "1"+makeBFTree(getEm,temp.getVertex());
+				}
+			}
+		}
+		return "";
+	}
+		
+
+
+
+
+
+
+
+
+
+
+
+
+}
