@@ -1,0 +1,10 @@
+add setpt 1
+add sed 2
+add a 2
+delete setpt 1
+merge 1 2
+clear 2
+add ded 1
+add foo 1
+add a 2
+subtract 1 2

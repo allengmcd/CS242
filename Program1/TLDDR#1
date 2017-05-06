@@ -1,0 +1,33 @@
+Allen McDermott
+program1 cs242
+TLDDR
+
+Classes used for this program:
+My set of strings class is called "set" it uses a singly linked list from the class Linked list.
+The set class is mainly used to try to prevent my methods getting crowded and to help make certain 
+methods faster (mainly the get size() method which in the LinkedList class is O(n) and in the set class
+is O(1)). LinkedList used the class node for its node. the important thing to note for node is that 
+it only has methods that i need and was originally going to be a doubly linkedlist but I was having trouble
+getting that to work. I did manage to make it work with the singly linked list. 
+
+The other side of the program was ScriptTool. ScriptTool was pretty straight forward I just went through 
+the different commands it might have and make sure that it triggers each command correctly.
+
+As far as interaction goes set uses Linkedlist for its global variables. LinkedList uses node for its 
+pointers. ScriptTool uses the StringList Interface which set implements.
+
+
+Design rational:
+My design rational at first was just to get the program working and not bothering with the time complexities.
+At first I used arrayLists just to figure out how to do the assignment since I find them easier to use than linked
+lists. Once I got that working I then started on a doubly linked list. The problem I had was that I was having 
+trouble deleting nodes. This was causing some odd bugs in the StringListTest so I decided to try singly linked lists
+instead. This helped a lot for my and I was able to get it working. One issue I was having is that I thought the list
+had to be in alphabetical order especially since I couldn't use anything from the java.util. However after talking 
+with the TA and other students I was told that it didn't have to. 
+
+IMPORTANT: (I commented this in my code in set as well) for the deleteAll method in class set if I have list A of 
+elements {q,w,e,r} and list B of elements {e,r} when the delete all method is called such as "subtract A B" the lists will 
+then become A = {q,w} and B = {} if it was "subtract B A" then A = {} B = {}     
+
+
